@@ -23,7 +23,7 @@ namespace UniversalExtractor
         public Form1()
         {
             InitializeComponent();
-
+            Control.CheckForIllegalCrossThreadCalls = false;
 
         }
 
@@ -243,8 +243,7 @@ namespace UniversalExtractor
                     ParallelOptions po = new ParallelOptions();
                     po.CancellationToken = cts.Token;
                     po.MaxDegreeOfParallelism = System.Environment.ProcessorCount;
-
-                    List<string> types = ucdgSelectTypes.Text.Split(";").ToList();
+                    List<string> types = ucdgSelectTypes.Text.Split(";").Select(a => a.Trim()).Where(a => !string.IsNullOrEmpty(a)).ToList();
                     List<FileInfo> files = fileInfos.Where(a => types.Contains(a.Extension)).ToList();
                     fileDtos = new BindingList<FileDto>();
                     FileDto fileDto = null;

@@ -30,7 +30,10 @@ namespace UniversalExtractor
             try
             {
                 engine.GetMetadata(inputFile2);
-                timeSpan = inputFile2.Metadata.Duration;
+                if (inputFile2 != null && inputFile2.Metadata != null)
+                {
+                    timeSpan = inputFile2.Metadata.Duration;
+                }
             }
             catch (Exception)
             {
